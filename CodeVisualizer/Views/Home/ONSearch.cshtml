@@ -1,0 +1,223 @@
+﻿
+
+@{
+    ViewData["Title"] = "O(n) Search";
+}
+<h1>
+    
+    @ViewData["Title"]
+
+</h1>
+
+
+
+<input id="randomGen" type="button" value="Randomize Graph" onclick= "randomNum()"/>
+<p></p>
+<input id="textField" type="text" value = 6  />
+<input id="searchButton" type="button" value="Search" onclick= "ONSearch()" />
+<p></p>
+<input id="graphLength" type="text" value = 6  />
+<input id="generateNewArr" type="button" value="Add Bars" onclick= "newArray(graphLength.value)" />
+
+<script>
+
+
+
+</script>
+
+<div>
+  <canvas id="myChart"></canvas>
+ 
+</div>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+     //Setting the name of all of the labels
+     var loop = 0;
+     var label = 1;    
+     var target =  parseInt(textField.value);
+     var labels = [
+      label++,
+      label++,
+      label++,
+      label++,
+      label++,
+      label++,
+    ];
+    //Creating the data to be stored in the graph
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: 'O(n)',
+        backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+            ],
+        borderColor: 'rgb(255, 99, 132)',
+        data: [ 1, 2, 3, 4, 5, 6],
+
+      }]
+    };
+    //generating a random dataset for the graph
+     function randomNum() 
+     {
+        for(var i = 0; i < data.datasets[0].data.length; i ++)
+        {
+            data.datasets[0].backgroundColor[i] = 'rgb(255, 99, 132)';
+            data.datasets[0].data[i] = Math.floor(Math.random() * 100);
+            console.log(data.datasets[0].data[i]);
+        }
+        myChart.update();
+        return;
+     }
+
+      const config = {
+      type: 'bar',
+      data: data,
+      options: {}
+    };
+    //TODO: click, execute function once to step through. Run, instantly finds num
+     function ONSearch() 
+     {
+        setBarToRed();
+        target =  parseInt(textField.value);
+        myChart.update();
+        
+        
+        data.datasets[0].backgroundColor[loop] = 'rgb(255, 200, 50)';
+        myChart.update();
+            
+        if(data.datasets[0].data[loop] == target) 
+        {
+            data.datasets[0].backgroundColor[loop] = 'rgb(0, 255, 132)';
+            myChart.update();
+            console.log("true");
+            //alert(target + " " + data.datasets[0].data[loop]);
+            loop = 0;
+            
+            return;
+                
+        }
+        if(loop == data.datasets[0].data.length )
+        {
+            alert("Target does not exist in graph");
+            loop = 0;
+            return;
+        }
+        loop++;
+     }
+     
+     function newArray(length)
+     {
+         
+         for( var i = 0; i < length; i ++)
+         {
+             addData(myChart, labels[labels.length - 1], 0)
+             
+         }
+         labels = new Array(data.datasets[0].data.length);
+         for(var i = 0; i < data.datasets[0].data.length; i++)
+         {
+             labels[i] = i;
+         }
+         data.labels = labels;
+         myChart.update();
+         
+     }
+     function addData(chart, label, data) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(data);
+        });
+        chart.update();
+     }
+
+    function removeData(chart) {
+        chart.data.labels.pop();
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        chart.update();
+    }
+    function setBarToRed()
+    {
+        for(var i = 0; i < data.datasets[0].data.length; i ++)
+        {
+            data.datasets[0].backgroundColor[i] = 'rgb(255, 99, 132)';
+        }
+        myChart.update();
+    }
+
+
+  
+    // === include 'setup' then 'config' above ===
+  const myChart = new Chart(document.getElementById('myChart'),config);
+  
+
+  
+</script>
+
+
+<header>
+    <style>h1{text-align: center;}</style>
+    
+    <h1>About O(n) Search And The Code Behind It</h1>
+   
+
+
+</header>
+<body>
+    <p>
+        The time complexity of this search is O(n). O(n) is a linear time complexity that will increase or decrease relative to out input "n".
+        For example, if we have ten people waiting in a line, and we want to give each person one sticker at a time, then I would have to give out a sticker ten times total.
+        If the number of people waiting in the line increased to twenty, then I would have to do that twenty times. If it increased to any number, then I would have to do it exactly that many times.
+        <br />
+        It also doesn't matter what actions I'm performing to each person. If I'm giving a sticker and a water bottle to each person the Time Complexity is technically O(n*2), but because
+        Time Complexity is based in infinite "n", any division, multiplication, addition, or subtraction is abstracted out until we are left with O(n). To remphasize, if the algorithim is linear,
+        then it is of O(n) time complexity. The Time Complexity will only change if there is an exponential difference of actions performed, or if actions performed is accounting for
+        a secondary input. The graph below illustrates a linear Time Complexity.
+        
+    </p>
+</body>
+
+<div>
+  <canvas id="TimeComplexity"></canvas>
+ 
+</div>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+
+        
+    const labels2 = [10, 20, 30, 40, 50, 60];
+    const data2 = {
+      labels: labels2,
+      datasets: [{
+        label: 'TimeComplexity',
+        data: [10, 20, 30, 40, 50, 60],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }]
+    };
+    
+
+
+      const config2 = {
+      type: 'line',
+      data: data2
+      
+    };
+
+     
+  
+    // === include 'setup' then 'config' above ===
+  const TimeComplexity = new Chart(document.getElementById('TimeComplexity'),config2);
+  
+  
+</script>

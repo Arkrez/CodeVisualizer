@@ -1,0 +1,112 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "O(log(n))Search";
+}
+
+<h1>@ViewData["Title"]</h1>
+<p>This is where the O(Log(n)) search algo will be.</p>
+
+<input id="randomGen" type="button" value="Randomize" onclick= "randomNum()"/>
+<input id="textField" type="text" value = 6  />
+<input id="searchButton" type="button" value="Search" onclick= "ONSearch(target)" />
+
+<script>
+
+
+
+</script>
+
+<div>
+  <canvas id="myChart"></canvas>
+ 
+</div>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+
+    var label = 1;
+        
+     var target =  parseInt(textField.value);
+      const labels = [
+      label++,
+      label++,
+      label++,
+      label++,
+      label++,
+      label++,
+    ];
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: 'O(log(n))',
+        backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+        'rgb(255, 99, 132)',
+            ],
+        borderColor: 'rgb(255, 99, 132)',
+        data: [ 1, 2, 3, 4, 5, 6, 7, 8],
+
+      }]
+    };
+    
+     function randomNum() 
+     {
+        for(var i = 0; i < 7; i ++)
+        {
+            data.datasets[0].backgroundColor[i] = 'rgb(255, 99, 132)';
+            data.datasets[0].data[i] = Math.floor(Math.random() * 100);
+            console.log(data.datasets[0].data[i]);
+        }
+        myChart.update();
+        return;
+     }
+
+      const config = {
+      type: 'bar',
+      data: data,
+      options: {}
+    };
+    //TODO: click, execute function once to step through. Run, instantly finds num
+     function ONSearch() 
+     {
+        
+        target =  parseInt(textField.value);
+        myChart.update();
+        
+        for(var i = 0; i < 7; i ++)
+        {
+
+            
+            data.datasets[0].backgroundColor[i] = 'rgb(0, 255, 132)';
+            myChart.update();
+            
+            if(data.datasets[0].data[i] == target) 
+            {
+                console.log("true");
+                return true;
+                
+            }
+
+            data.datasets[0].backgroundColor[i] = 'rgb(255, 99, 132)';
+            myChart.update();
+            
+        }
+        console.log("false" + target + parseInt(textField.value));
+        return false ;
+     }
+  
+    // === include 'setup' then 'config' above ===
+  const myChart = new Chart(document.getElementById('myChart'),config);
+  
+
+  
+</script>
+
+
