@@ -6,4 +6,6 @@ The algorithims being visualized are simple search algorithms, in the future I p
 create a visual for trees yet
 <p><p>
 This project was made in Asp.Net 6.0 using the MVC. 
-Chart.js was used to create all of the charts/graphs Link --> https://www.chartjs.org/docs/latest/ 
+Chart.js was used to create all of the charts/graphs 
+<p><p>
+ Link --> https://www.chartjs.org/docs/latest/ 
